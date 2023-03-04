@@ -131,13 +131,15 @@ If you have a base class already for all pages, then wrap the content using `Vie
 </details>
 
 ## Why?
-Existing solutions like `bloc`, `provider` etc. limit the logic holders to only emit one stream of state. 
+Proven patterns in Android Ecosystem for more than 5 years. They are still intact even after the adoption of a completely new UI framework - Jetpack Compose.
+
+Existing solutions in flutter like `bloc`, `provider` etc. limit the logic holders to only emit one stream of state. 
 
 ```dart
 class MyLogicHolder: LogicHolder<StateModel>
 ```
 
-Sometimes, we want to expose multiple different state streams that are related but change/emit at a different frequency.
+Sometimes, we want to expose multiple different state streams that are related but change/emit at a different frequency. Exposing them right from the `ViewModel` without any boilerplate overhead of writing Selectors etc. is very convenient without any cost.
 
 ```dart
 class MyViewModel: ViewModel {
