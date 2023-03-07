@@ -1,0 +1,41 @@
+name: Auto Format Dart code
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  GITHUB_BASE_REF: ${{github.base_ref}}
+
+jobs:
+  pr-auto-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.3
+
+      - name: Auto Format Changed Dart Files
+        continue-on-error: true
+        shell: bash
+        run: |
+          # Fetch the base branch for diffing
+          git fetch origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+          # Format the changed dart files
+          git diff --name-only $GITHUB_BASE_REF..HEAD | grep "\.dart" | xargs --no-run-if-empty dart format
+
+      - name: Check for modified files
+        id: git-check
+        shell: bash
+        run: |
+          echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if files changed
+        if: steps.git-check.outputs.modified == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto format dart files in #${{ github.event.pull_request.number }}"
+
