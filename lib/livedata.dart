@@ -1,5 +1,21 @@
 import 'package:flutter/widgets.dart';
 
+/// Observable state holder that allows for imperatively setting and reading the state value
+///
+/// You'd use this inside a `ViewModel` to expose state for the UI to observe/listen like this
+/// ```dart
+/// class CounterViewModel extends ViewModel {
+///   final MutableLiveData<int> _counter = MutableLiveData(0);
+///
+///   LiveData<int> get counter => _counter;
+///
+///   void increment() {
+///     _counter.value++;
+///   }
+/// }
+/// ```
+///
+/// @see also [LiveDataBuilder] and [LiveDataListener]
 abstract class LiveData<T> {
   T _currentValue;
   LiveData(this._currentValue);
@@ -35,6 +51,23 @@ abstract class LiveData<T> {
 
 typedef LiveDataObserver<T> = void Function(T);
 
+/// An Updateable LiveData as the name suggests
+///
+/// This is defined separately from `LiveData` to avoid
+/// access to consumers of the `LiveData`(UI) to modify the state directly
+/// You'd expose a `LiveData<T>` publicly from a `ViewModel` while backing
+/// it using a private `MutableLiveData<T>` like this
+/// ```dart
+/// class CounterViewModel extends ViewModel {
+///   final MutableLiveData<int> _counter = MutableLiveData(0);
+///
+///   LiveData<int> get counter => _counter;
+///
+///   void increment() {
+///     _counter.value++;
+///   }
+/// }
+/// ```
 class MutableLiveData<T> extends LiveData<T> {
   // @param initialValue: The initial value of the LiveData.
   MutableLiveData(super._currentValue);
@@ -44,6 +77,17 @@ class MutableLiveData<T> extends LiveData<T> {
   }
 }
 
+/// A Widget that observes a `LiveData` and rebuilds on change
+///
+/// ```dart
+/// LiveDataBuilder<int>(
+///   liveData: viewModel.counter,
+///   builder: (BuildContext buildContext, int count) =>
+///     Text('$count'),
+///   )
+/// )
+/// ```
+/// See also [LiveDataListener] for performing UI Side Effects on livedata change
 class LiveDataBuilder<T> extends StatefulWidget {
   final LiveData<T> liveData;
   final Widget Function(BuildContext, T) builder;
@@ -54,10 +98,10 @@ class LiveDataBuilder<T> extends StatefulWidget {
   });
 
   @override
-  LiveDataBuilderState<T> createState() => LiveDataBuilderState<T>();
+  State<StatefulWidget> createState() => _LiveDataBuilderState<T>();
 }
 
-class LiveDataBuilderState<T> extends State<LiveDataBuilder<T>> {
+class _LiveDataBuilderState<T> extends State<LiveDataBuilder<T>> {
   late final LiveDataObserver<T> _observer;
   late T _currentValue;
 
@@ -84,6 +128,11 @@ class LiveDataBuilderState<T> extends State<LiveDataBuilder<T>> {
   }
 }
 
+/// A LiveData observer that invokes a change listener on [LiveData] change
+///
+/// While [LiveDataBuilder] is for updating a UI based on the [LiveData]
+/// [LiveDataListener] allows to listen to a [LiveData] and perform a Side Effect
+/// See [Side Effects in Flutter](https://codewithandrea.com/articles/side-effects-flutter/)
 class LiveDataListener<T> extends StatefulWidget {
   final Widget child;
   final LiveData<T> liveData;
