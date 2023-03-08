@@ -29,50 +29,50 @@ import 'package:flutter/widgets.dart';
 /// to simplify the logic inside a `ViewModel` or to hold some state
 /// in a larger scope than the ViewModel
 abstract class ViewModel {
-	void onDispose() {
-	}
+  void onDispose() {}
 }
 
 class ViewModelStore {
-	final Map<String, ViewModel> _viewModels = <String, ViewModel>{};
+  final Map<String, ViewModel> _viewModels = <String, ViewModel>{};
 
-	T? get<T extends ViewModel>({ String key = "" }) {
-		final Type type = T;
-		return _viewModels["$key:$type"] as T?;
-	}
+  T? get<T extends ViewModel>({String key = ""}) {
+    final Type type = T;
+    return _viewModels["$key:$type"] as T?;
+  }
 
-	void put<T extends ViewModel>(T viewModel, { String key = "" }) {
-		final Type type = T;
-		_viewModels["$key:$type"] = viewModel;
-	}
+  void put<T extends ViewModel>(T viewModel, {String key = ""}) {
+    final Type type = T;
+    _viewModels["$key:$type"] = viewModel;
+  }
 
-	void dispose() {
-		for (final ViewModel viewModel in _viewModels.values) {
-			viewModel.onDispose();
-		}
-		_viewModels.clear();
-	}
+  void dispose() {
+    for (final ViewModel viewModel in _viewModels.values) {
+      viewModel.onDispose();
+    }
+    _viewModels.clear();
+  }
 }
 
 class ViewModelStoreProvider extends InheritedWidget {
-	final ViewModelStore viewModelStore;
+  final ViewModelStore viewModelStore;
 
-	const ViewModelStoreProvider({
-		super.key,
-		required this.viewModelStore,
-		required super.child,
-	});
+  const ViewModelStoreProvider({
+    super.key,
+    required this.viewModelStore,
+    required super.child,
+  });
 
-	static ViewModelStoreProvider of(BuildContext context) {
-		final ViewModelStoreProvider? scope = context.dependOnInheritedWidgetOfExactType<ViewModelStoreProvider>();
-		assert(scope != null, "No ViewModelScope found in context");
-		return scope!;
-	}
+  static ViewModelStoreProvider of(BuildContext context) {
+    final ViewModelStoreProvider? scope =
+        context.dependOnInheritedWidgetOfExactType<ViewModelStoreProvider>();
+    assert(scope != null, "No ViewModelScope found in context");
+    return scope!;
+  }
 
-	@override
-	bool updateShouldNotify(ViewModelStoreProvider oldWidget) {
-		return viewModelStore != oldWidget.viewModelStore;
-	}
+  @override
+  bool updateShouldNotify(ViewModelStoreProvider oldWidget) {
+    return viewModelStore != oldWidget.viewModelStore;
+  }
 }
 
 /// Describes how to construct the `ViewModel`s in your app
@@ -81,9 +81,9 @@ class ViewModelStoreProvider extends InheritedWidget {
 /// Use the [ViewModelFactoryProvider] to supply the factory
 /// down the Widget tree
 abstract class ViewModelFactory {
-	const ViewModelFactory();
+  const ViewModelFactory();
 
-	T create<T extends ViewModel>();
+  T create<T extends ViewModel>();
 }
 
 /// Supplies the [viewModelFactory] down the Widget tree
@@ -116,24 +116,25 @@ abstract class ViewModelFactory {
 /// }
 /// ```
 class ViewModelFactoryProvider extends InheritedWidget {
-	final ViewModelFactory viewModelFactory;
+  final ViewModelFactory viewModelFactory;
 
-	const ViewModelFactoryProvider({
-		super.key,
-		required this.viewModelFactory,
-		required super.child,
-	});
+  const ViewModelFactoryProvider({
+    super.key,
+    required this.viewModelFactory,
+    required super.child,
+  });
 
-	static ViewModelFactoryProvider of(BuildContext context) {
-		final ViewModelFactoryProvider? scope = context.dependOnInheritedWidgetOfExactType<ViewModelFactoryProvider>();
-		assert(scope != null, "No ViewModelFactoryScope found in context");
-		return scope!;
-	}
+  static ViewModelFactoryProvider of(BuildContext context) {
+    final ViewModelFactoryProvider? scope =
+        context.dependOnInheritedWidgetOfExactType<ViewModelFactoryProvider>();
+    assert(scope != null, "No ViewModelFactoryScope found in context");
+    return scope!;
+  }
 
-	@override
-	bool updateShouldNotify(ViewModelFactoryProvider oldWidget) {
-		return viewModelFactory != oldWidget.viewModelFactory;
-	}
+  @override
+  bool updateShouldNotify(ViewModelFactoryProvider oldWidget) {
+    return viewModelFactory != oldWidget.viewModelFactory;
+  }
 }
 
 /// Provides the `ViewModel` present in the scope or creates one
@@ -143,10 +144,10 @@ class ViewModelFactoryProvider extends InheritedWidget {
 /// context.viewModelProvider
 /// ```
 class ViewModelProvider {
-	ViewModelStore viewModelStore;
-	ViewModelFactory viewModelFactory;
+  ViewModelStore viewModelStore;
+  ViewModelFactory viewModelFactory;
 
-	ViewModelProvider(this.viewModelStore, this.viewModelFactory);
+  ViewModelProvider(this.viewModelStore, this.viewModelFactory);
 
   /// Returns the `ViewModel` present in the scope or creates one
   ///
@@ -155,26 +156,29 @@ class ViewModelProvider {
   ///
   /// `ViewModel` in the scope is identified using it's type by default
   /// If you want multiple `ViewModel`s of the same type in a scope, then
-  /// you can use the `key` parameter to distinguish the different `ViewModel`s 
+  /// you can use the `key` parameter to distinguish the different `ViewModel`s
   /// of the same type
-	T get<T extends ViewModel>({ String key = "" }) {
-		final T? viewModel = viewModelStore.get<T>(key: key);
-		if (viewModel != null) {
-			return viewModel;
-		}
-		// if viewModel is null, create a new one
-		final T newViewModel = viewModelFactory.create<T>();
-		viewModelStore.put(newViewModel, key: key);
-		return newViewModel;
-	}
+  T get<T extends ViewModel>({String key = ""}) {
+    final T? viewModel = viewModelStore.get<T>(key: key);
+    if (viewModel != null) {
+      return viewModel;
+    }
+    // if viewModel is null, create a new one
+    final T newViewModel = viewModelFactory.create<T>();
+    viewModelStore.put(newViewModel, key: key);
+    return newViewModel;
+  }
 }
 
 extension ViewModelProviderExtension on BuildContext {
-	ViewModelProvider get viewModelProvider {
-		final ViewModelStoreProvider viewModelStoreProvider = ViewModelStoreProvider.of(this);
-		final ViewModelFactoryProvider viewModelFactoryProvider = ViewModelFactoryProvider.of(this);
-		return ViewModelProvider(viewModelStoreProvider.viewModelStore, viewModelFactoryProvider.viewModelFactory);
-	}
+  ViewModelProvider get viewModelProvider {
+    final ViewModelStoreProvider viewModelStoreProvider =
+        ViewModelStoreProvider.of(this);
+    final ViewModelFactoryProvider viewModelFactoryProvider =
+        ViewModelFactoryProvider.of(this);
+    return ViewModelProvider(viewModelStoreProvider.viewModelStore,
+        viewModelFactoryProvider.viewModelFactory);
+  }
 }
 
 /// A Wrapper Widget denoting a scope for the `ViewModel`s used inside it
@@ -195,33 +199,30 @@ extension ViewModelProviderExtension on BuildContext {
 /// When a `ViewModelScope` is disposed and removed from the UI tree
 /// all the `ViewModel`s acquired inside are also disposed
 class ViewModelScope extends StatefulWidget {
-	final Widget Function(BuildContext) builder;
+  final Widget Function(BuildContext) builder;
 
-	const ViewModelScope({
-		super.key,
-		required this.builder,
-	});
+  const ViewModelScope({
+    super.key,
+    required this.builder,
+  });
 
-	@override
-	State<StatefulWidget> createState() => _ViewModelScopeState();
+  @override
+  State<StatefulWidget> createState() => _ViewModelScopeState();
 }
 
 class _ViewModelScopeState extends State<ViewModelScope> {
-	final ViewModelStore viewModelStore = ViewModelStore();
+  final ViewModelStore viewModelStore = ViewModelStore();
 
-	@override
-	Widget build(BuildContext context) {
-		return ViewModelStoreProvider(
-			viewModelStore: viewModelStore,
-			child: Builder(
-				builder: widget.builder
-			)
-		);
-	}
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelStoreProvider(
+        viewModelStore: viewModelStore,
+        child: Builder(builder: widget.builder));
+  }
 
-	@override
-	void dispose() {
-		viewModelStore.dispose();
-		super.dispose();
-	}
+  @override
+  void dispose() {
+    viewModelStore.dispose();
+    super.dispose();
+  }
 }
