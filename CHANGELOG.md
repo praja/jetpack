@@ -1,3 +1,7 @@
+## 0.1.1
+#### 💫 New
+* `example` published to pub.dev
+
 ## 0.1.0
 #### 🚨 Breaking Changes
 * `ViewModelScopeState` -> `_ViewModelScopeState`
@@ -10,5 +14,4 @@
 	(Might not have mattered in terms of application memory usage, since those objects don't have any reference and would be garbage collected)
 
 ## 0.0.1
-
 * Initial Release with `ViewModel` and `LiveData`
