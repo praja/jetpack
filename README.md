@@ -1,5 +1,5 @@
 # Jetpack for Flutter
-A set of abstractions, utilities inspired from android Jetpack 🚀 to help manage state in flutter applications.
+A set of abstractions, utilities inspired from Android Jetpack 🚀 to help manage state in flutter applications.
 
 ## Features
 ### `LiveData`
@@ -130,10 +130,10 @@ If you have a base class already for all pages, then wrap the content using `Vie
 
 </details>
 
-## Why?
-Proven patterns in Android Ecosystem for more than 5 years. They are still intact even after the adoption of a completely new UI framework - Jetpack Compose.
+## Why another State Management Library?
+These are proven patterns in Android Ecosystem for more than 5 years. They are still intact even after the adoption of a completely new UI framework - Jetpack Compose. These abstractions have been resilient to change because of **low coupling** and **flexibility**.
 
-Existing solutions in flutter like `bloc`, `provider` etc. limit the logic holders to only emit one stream of state. 
+Existing solutions in flutter like `bloc`, `provider` etc. limit the logic holders to only emit one stream of state by default, and require extra boiler plate to "select" the pieces of states that the UI would want to react to.
 
 ```dart
 class MyLogicHolder: LogicHolder<StateModel>
