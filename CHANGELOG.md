@@ -1,3 +1,7 @@
+## 0.1.2
+#### Fixes
+* Diagram formatting in `viewmodel` documentation
+
 ## 0.1.1
 #### 💫 New
 * `example` published to pub.dev

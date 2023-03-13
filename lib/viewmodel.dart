@@ -15,6 +15,8 @@ import 'package:flutter/widgets.dart';
 /// `ViewModel`s allow for UI Widgets to be as simple as possible
 /// UI only talks and listens to the `ViewModel`, the rest of
 /// the application code is abstracted away.
+///
+/// ```
 ///                               ┌─────────┐
 ///                  ┌───────────►│ Network │
 ///                  │            └─────────┘
@@ -24,6 +26,7 @@ import 'package:flutter/widgets.dart';
 ///                  │            ┌──────────┐
 ///                  └───────────►│ MemCache │
 ///                               └──────────┘
+/// ```
 /// One can choose to have more abstractions between the `ViewModel`
 /// and network, database and memcache like `Repository`, `Service`
 /// to simplify the logic inside a `ViewModel` or to hold some state
