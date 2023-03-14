@@ -13,3 +13,4 @@ export 'viewmodel.dart'
         ViewModelProviderExtension;
 export 'livedata.dart'
     show LiveData, MutableLiveData, LiveDataObserver, LiveDataBuilder;
+export 'eventqueue.dart' show EventQueue, MutableEventQueue, EventListener;

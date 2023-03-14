@@ -7,6 +7,9 @@ State holder and change notifier, that also allows to read current value.
 
 If you are fully onto `Stream`s and reactive programming, you might not need this. But if you want to write imperative code to update state, this should help.
 
+### `EventQueue`
+For pushing ephemeral state to the UI and clearing off after being handled. Useful for triggering toasts / popups from within `ViewModel`
+
 ### `ViewModel`
 Business logic container that exposes state, event methods to the UI and communicates with the rest of the application
 
