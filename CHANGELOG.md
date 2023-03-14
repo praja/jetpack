@@ -1,3 +1,9 @@
+## 0.1.3
+#### 💫 New
+`EventListener` and `EventQueue` for communicating events to UI
+
+These events are expected to be used for ephemeral state changes to the UI like showing toasts, dialog etc.
+
 ## 0.1.2
 #### Fixes
 * Diagram formatting in `viewmodel` documentation
