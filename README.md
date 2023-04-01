@@ -19,6 +19,7 @@ For pushing ephemeral state to the UI and clearing off after being handled. Usef
 Business logic container that exposes state, event methods to the UI and communicates with the rest of the application
 
 ## Usage
+`$ flutter pub add jetpack:^0.1.3`
 
 Create your `ViewModel` and expose state using `LiveData`
 ```dart
@@ -171,11 +172,12 @@ You can expose state to the UI using `Future`s and `Stream`s as well. Your **cho
 class ProductViewModel: ViewModel {
   //
 
-  Future<ProductDetails> productDetails = await fetchProductDetails();
-  Stream<bool> isAddedToCart = cartRepository.isAddedToCart(_productId);
+  Future<ProductDetails> productDetails;
+  Stream<bool> isAddedToCart;
+  ValueNotifier<bool> isLoading;
 }
 ```
-And use `FutureBuilder` and `StreamBuilder` to listen and update the UI.
+And use `FutureBuilder`, `StreamBuilder` and `ValueListenableBuilder` to listen and update the UI.
 
 And there is no need of creating extra models for communicating UI events to `ViewModel`. Just call the methods directly.
 ```dart
