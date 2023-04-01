@@ -1,6 +1,11 @@
 # Jetpack for Flutter
 A set of abstractions, utilities inspired from Android Jetpack 🚀 to help manage state in flutter applications.
 
+<p>
+  <a href="https://github.com/praja/jetpack/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203-green" /></a>
+  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v0.1.3-blue" /></a>
+</p>
+
 ## Features
 ### `LiveData`
 State holder and change notifier, that also allows to read current value.
