@@ -1,3 +1,8 @@
+## 1.0.1
+#### Fixes
+* Made `context.viewModelProvider.get()` safe to call in `StatefulWidget.initState()` and anywhere you can access `context`
+* Removed deprecation for `context.viewModelProvider` as there are valid use cases for it like a GlobalViewModelProvider etc.
+
 ## 1.0.0
 #### 💫 New
 * More optimal `context.getViewModel()` and `ViewModelProvider.of(context)` methods to acquire `ViewModel`

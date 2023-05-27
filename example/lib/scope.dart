@@ -41,7 +41,7 @@ class RandomColorContainerState extends State<RandomColorContainer>
   void initState() {
     super.initState();
 
-    viewModel = context.getViewModel();
+    viewModel = context.viewModelProvider.get();
     controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,

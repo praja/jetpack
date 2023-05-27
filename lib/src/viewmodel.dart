@@ -57,28 +57,6 @@ class ViewModelStore {
   }
 }
 
-class ViewModelStoreProvider extends InheritedWidget {
-  final ViewModelStore viewModelStore;
-
-  const ViewModelStoreProvider({
-    super.key,
-    required this.viewModelStore,
-    required super.child,
-  });
-
-  static ViewModelStoreProvider of(BuildContext context) {
-    final ViewModelStoreProvider? scope =
-        context.dependOnInheritedWidgetOfExactType<ViewModelStoreProvider>();
-    assert(scope != null, "No ViewModelScope found in context");
-    return scope!;
-  }
-
-  @override
-  bool updateShouldNotify(ViewModelStoreProvider oldWidget) {
-    return viewModelStore != oldWidget.viewModelStore;
-  }
-}
-
 /// Describes how to construct the `ViewModel`s in your app
 ///
 /// Typically there is just one implmenentation of this per application
@@ -154,7 +132,16 @@ class ViewModelProvider {
     return context.getViewModel();
   }
 
-  @Deprecated("Use context.getViewModel() instead")
+  /// Returns the `ViewModel` present in the scope or creates one
+  ///
+  /// If the `ViewModel` is already present in the scope then it just returns it
+  /// So this method is **safe to call within `StatelssWidget.build()` and StatefulWidget.initState()**
+  /// Basically anywhere you have access to `context`
+  ///
+  /// `ViewModel` in the scope is identified using it's type by default
+  /// If you want multiple `ViewModel`s of the same type in a scope, then
+  /// you can use the `key` parameter to distinguish the different `ViewModel`s
+  /// of the same type
   T get<T extends ViewModel>({String key = ""}) {
     final T? viewModel = viewModelStore.get<T>(key: key);
     if (viewModel != null) {
@@ -168,10 +155,9 @@ class ViewModelProvider {
 }
 
 extension ViewModelProviderExtension on BuildContext {
-  @Deprecated("Use context.getViewModel() instead")
   ViewModelProvider get viewModelProvider {
-    final vmStore = Provider.of<ViewModelStore>(this);
-    final vmFactory = Provider.of<ViewModelFactory>(this);
+    final vmStore = Provider.of<ViewModelStore>(this, listen: false);
+    final vmFactory = Provider.of<ViewModelFactory>(this, listen: false);
     return ViewModelProvider(vmStore, vmFactory);
   }
 
