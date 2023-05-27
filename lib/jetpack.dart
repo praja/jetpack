@@ -2,7 +2,7 @@
 /// to help manage state in flutter applications
 library jetpack;
 
-export 'viewmodel.dart'
+export 'src/viewmodel.dart'
     show
         ViewModel,
         ViewModelStore,
@@ -11,6 +11,6 @@ export 'viewmodel.dart'
         ViewModelFactoryProvider,
         ViewModelProvider,
         ViewModelProviderExtension;
-export 'livedata.dart'
+export 'src/livedata.dart'
     show LiveData, MutableLiveData, LiveDataObserver, LiveDataBuilder;
-export 'eventqueue.dart' show EventQueue, MutableEventQueue, EventListener;
+export 'src/eventqueue.dart' show EventQueue, MutableEventQueue, EventListener;

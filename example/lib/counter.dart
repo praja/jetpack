@@ -67,9 +67,9 @@ class CounterViewModel extends ViewModel {
   }
 }
 
-extension CounterViewModelExtension on BuildContext {
+extension on BuildContext {
   CounterViewModel counterViewModel(int max, {String key = ""}) {
-    final viewModel = viewModelProvider.get<CounterViewModel>(key: key);
+    final viewModel = getViewModel<CounterViewModel>(key: key);
     viewModel._initialize(max);
     return viewModel;
   }
