@@ -1,3 +1,11 @@
+## 1.0.0
+#### 💫 New
+* More optimal `context.getViewModel()` and `ViewModelProvider.of(context)` methods to acquire `ViewModel`
+* Acquiring a `ViewModel` is now safe in `StatefulWidget.initState()`
+
+#### ⚠️ Deprecated
+* `context.viewModelProvider.get()` - Use `context.getViewModel()` or `ViewModelProvider.of(context)` instead
+
 ## 0.1.3
 #### 💫 New
 `EventListener` and `EventQueue` for communicating events to UI
