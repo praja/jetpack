@@ -27,6 +27,23 @@ void main() {
     expect(store.get<_TestViewModel>(key: 'test_key_1'), equals(null));
     expect(store.get<_TestViewModel>(key: 'test_key_2'), equals(null));
   });
+
+  test('liveData observer can be removed on value changed', () {
+    MutableLiveData<int> liveData = MutableLiveData(1);
+    Function remove = () {};
+    observer(int value) {
+      if (value == 0) {
+        remove();
+      }
+    }
+
+    remove = () {
+      liveData.removeObserver(observer);
+    };
+
+    liveData.observe(observer);
+    liveData.value = 0;
+  });
 }
 
 class _TestViewModel extends ViewModel {}

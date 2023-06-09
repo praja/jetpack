@@ -43,7 +43,9 @@ abstract class LiveData<T> {
   }
 
   void _notifyObservers() {
-    for (final LiveDataObserver<T> observer in _observers) {
+    // copying to allow for observers to call `removeObserver` during iteration
+    final observersToNotify = Set.of(_observers);
+    for (final LiveDataObserver<T> observer in observersToNotify) {
       observer(_currentValue);
     }
   }
