@@ -1,3 +1,7 @@
+## 1.0.2
+### Fixes
+* Fix ERROR: Concurrent modification during iteration: _Set if LiveData.removeObserver is called during notify
+
 ## 1.0.1
 #### Fixes
 * Made `context.viewModelProvider.get()` safe to call in `StatefulWidget.initState()` and anywhere you can access `context`
