@@ -1,6 +1,6 @@
 name: jetpack
 description: A set of abstractions, utilities inspired from android Jetpack to help manage state in flutter applications.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/praja/jetpack
 
 environment:

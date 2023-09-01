@@ -1,3 +1,7 @@
+## 1.0.3
+### Fixes
+* Fix: Avoid `setState` being inside `initState` of `LiveDataBuilder` and `LiveDataListener`
+
 ## 1.0.2
 ### Fixes
 * Fix ERROR: Concurrent modification during iteration: _Set if LiveData.removeObserver is called during notify
