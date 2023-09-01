@@ -27,6 +27,31 @@ void main() {
     expect(store.get<_TestViewModel>(key: 'test_key_1'), equals(null));
     expect(store.get<_TestViewModel>(key: 'test_key_2'), equals(null));
   });
+
+  test('livedata should invoke observer on observe', () {
+    String value = 'test_value';
+    LiveData<String> liveData = MutableLiveData(value);
+    bool invoked = false;
+
+    liveData.observe((String data) {
+      expect(data, equals(value));
+      invoked = true;
+    });
+
+    expect(invoked, equals(true));
+  });
+
+  test('livedata should not invoke observer if emitCurrentValue is false', () {
+    String value = 'test_value';
+    LiveData<String> liveData = MutableLiveData(value);
+    bool invoked = false;
+
+    liveData.observe((String data) {
+      invoked = true;
+    }, emitCurrentValue: false);
+
+    expect(invoked, equals(false));
+  });
 }
 
 class _TestViewModel extends ViewModel {}
