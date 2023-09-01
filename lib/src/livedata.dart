@@ -24,9 +24,11 @@ abstract class LiveData<T> {
 
   final Set<LiveDataObserver<T>> _observers = {};
 
-  void observe(LiveDataObserver<T> observer) {
+  void observe(LiveDataObserver<T> observer, {bool emitCurrentValue = true}) {
     _observers.add(observer);
-    observer(_currentValue);
+    if (emitCurrentValue) {
+      observer(_currentValue);
+    }
   }
 
   void removeObserver(LiveDataObserver<T> observer) {
@@ -115,7 +117,8 @@ class _LiveDataBuilderState<T> extends State<LiveDataBuilder<T>> {
         _currentValue = value;
       });
     };
-    widget.liveData.observe(_observer);
+    _currentValue = widget.liveData.value;
+    widget.liveData.observe(_observer, emitCurrentValue: false);
   }
 
   @override
@@ -189,7 +192,7 @@ class _LiveDataListenerState<T> extends State<LiveDataListener<T>> {
   }
 
   void _startObserving(LiveData<T> liveData) {
-    liveData.observe(_observer);
+    liveData.observe(_observer, emitCurrentValue: false);
   }
 
   void _onChanged(T value) {
