@@ -1,3 +1,6 @@
+## 1.0.4
+* Updated installation, usage and setup in README
+
 ## 1.0.3
 ### Fixes
 * Fix: Avoid `setState` being inside `initState` of `LiveDataBuilder` and `LiveDataListener`

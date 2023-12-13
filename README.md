@@ -3,7 +3,7 @@ A set of abstractions, utilities inspired from Android Jetpack 🚀 to help mana
 
 <p>
   <a href="https://github.com/praja/jetpack/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203-green" /></a>
-  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.3-blue" /></a>
+  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.4-blue" /></a>
 </p>
 
 ## Features
@@ -64,7 +64,7 @@ FloatingActionButton(
 )
 ```
 
-## Getting started
+## Setup (One time in a flutter project)
 
 <details open>
 <summary>Create a <code>ViewModelFactory</code> for your app</summary>
@@ -83,9 +83,19 @@ class MyAppViewModelFactory extends ViewModelFactory {
 }
 ```
 
-</details>
+If you use dependency injection frameworks like `get_it`, your factory could like this
+```dart
+class MyAppViewModelFactory extends ViewModelFactory {
+  const MyAppViewModelFactory();
 
-TBA: Add instructions for the users of dependency frameworks like [`get_it`](https://pub.dev/packages/get_it)
+  @override
+  T create<T extends ViewModel>() {
+    return GetIt.I.get<T>();
+  }
+}
+```
+
+</details>
 
 <details open>
 <summary>Provide your <code>ViewModelFactory</code> at the root of your App</summary>
