@@ -3,7 +3,7 @@ A set of abstractions, utilities inspired from Android Jetpack 🚀 to help mana
 
 <p>
   <a href="https://github.com/praja/jetpack/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203-green" /></a>
-  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v0.1.3-blue" /></a>
+  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.3-blue" /></a>
 </p>
 
 ## Features
@@ -19,7 +19,7 @@ For pushing ephemeral state to the UI and clearing off after being handled. Usef
 Business logic container that exposes state, event methods to the UI and communicates with the rest of the application
 
 ## Usage
-`$ flutter pub add jetpack:^0.1.3`
+`$ flutter pub add jetpack:^1.0.3`
 
 Create your `ViewModel` and expose state using `LiveData`
 ```dart
@@ -64,7 +64,6 @@ FloatingActionButton(
 ```
 
 ## Getting started
-This library is not yet published. Until then, consider copying the [`viewmodel.dart`](./lib/livedata.dart) and [`livedata.dart`](./lib/livedata.dart)
 
 <details open>
 <summary>Create a <code>ViewModelFactory</code> for your app</summary>
