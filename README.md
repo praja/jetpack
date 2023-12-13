@@ -18,9 +18,10 @@ For pushing ephemeral state to the UI and clearing off after being handled. Usef
 ### `ViewModel`
 Business logic container that exposes state, event methods to the UI and communicates with the rest of the application
 
-## Usage
-`$ flutter pub add jetpack:^1.0.3`
+## Installation
+`$ flutter pub add jetpack`
 
+## Usage
 Create your `ViewModel` and expose state using `LiveData`
 ```dart
 import 'package:jetpack/jetpack.dart';
