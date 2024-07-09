@@ -1,2 +1,2 @@
 export 'src/livedata.dart'
-    show LiveData, MutableLiveData, LiveDataObserver, LiveDataBuilder;
+    show LiveData, MutableLiveData, LiveDataObserver, LiveDataBuilder, LiveDataListener;

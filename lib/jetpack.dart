@@ -12,5 +12,10 @@ export 'src/viewmodel.dart'
         ViewModelProvider,
         ViewModelProviderExtension;
 export 'src/livedata.dart'
-    show LiveData, MutableLiveData, LiveDataObserver, LiveDataBuilder;
+    show
+        LiveData,
+        MutableLiveData,
+        LiveDataObserver,
+        LiveDataBuilder,
+        LiveDataListener;
 export 'src/eventqueue.dart' show EventQueue, MutableEventQueue, EventListener;

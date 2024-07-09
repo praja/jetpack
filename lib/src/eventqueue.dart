@@ -56,7 +56,7 @@ class MutableEventQueue<T> extends EventQueue<T> {
   }
 }
 
-class EventListener<T> extends StatelessWidget {
+class EventListener<T> extends StatefulWidget {
   final EventQueue<T> eventQueue;
   final Future<void> Function(BuildContext, T) onEvent;
   final Widget child;
@@ -68,21 +68,39 @@ class EventListener<T> extends StatelessWidget {
     required this.child,
   });
 
-  void _onChange(BuildContext context, _Event<T>? event) async {
+  @override
+  State<StatefulWidget> createState() {
+    return _EventListenerState<T>();
+  }
+}
+
+class _EventListenerState<T> extends State<EventListener<T>> {
+  bool _handledInitialValue = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_handledInitialValue) {
+      _handledInitialValue = true;
+      _onChange(context, widget.eventQueue._nextEvent.value);
+    }
+  }
+
+  Future<void> _onChange(BuildContext context, _Event<T>? event) async {
     if (event != null) {
-      await onEvent(context, event.value);
-      eventQueue._onHandled(event);
+      await widget.onEvent(context, event.value);
+      widget.eventQueue._onHandled(event);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return LiveDataListener<_Event<T>?>(
-      liveData: eventQueue._nextEvent,
+      liveData: widget.eventQueue._nextEvent,
       changeListener: (innerContext, event, _) {
         _onChange(innerContext, event);
       },
-      child: child,
+      child: widget.child,
     );
   }
 }
