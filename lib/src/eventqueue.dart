@@ -82,7 +82,9 @@ class _EventListenerState<T> extends State<EventListener<T>> {
     super.didChangeDependencies();
     if (!_handledInitialValue) {
       _handledInitialValue = true;
-      _onChange(context, widget.eventQueue._nextEvent.value);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _onChange(context, widget.eventQueue._nextEvent.value);
+      });
     }
   }
 

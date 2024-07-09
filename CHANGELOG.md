@@ -1,4 +1,4 @@
-## 1.0.5
+## 1.0.6
 * Fix `EventListener` not consuming events emitted in the event queue before widget is in the tree
 
 ## 1.0.4
