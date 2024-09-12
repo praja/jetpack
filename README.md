@@ -3,7 +3,7 @@ A set of abstractions, utilities inspired from Android Jetpack 🚀 to help mana
 
 <p>
   <a href="https://github.com/praja/jetpack/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203-green" /></a>
-  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.4-blue" /></a>
+  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.7-blue" /></a>
 </p>
 
 ## Features
