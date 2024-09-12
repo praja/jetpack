@@ -1,3 +1,6 @@
+## 1.0.7
+* Fix: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+
 ## 1.0.6
 * Fix `EventListener` not consuming events emitted in the event queue before widget is in the tree
 
