@@ -83,6 +83,7 @@ class _EventListenerState<T> extends State<EventListener<T>> {
     if (!_handledInitialValue) {
       _handledInitialValue = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         _onChange(context, widget.eventQueue._nextEvent.value);
       });
     }
