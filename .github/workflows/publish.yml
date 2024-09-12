@@ -1,8 +1,9 @@
 name: Publish plugin
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+    - 'v[0-9]+.[0-9]+.[0-9]+' # tag pattern on pub.dev: 'v{{version}'
 
 jobs:
   publish:
@@ -13,8 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: flutter-actions/setup-flutter@v3
-        with:
-          flutter-version: '3.19.6'
       - uses: flutter-actions/setup-pubdev-credentials@v1
       - name: Install dependencies
         run: flutter pub get
