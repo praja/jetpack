@@ -12,8 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
+      - uses: flutter-actions/setup-flutter@v3
+        with:
+          flutter-version: '3.19.6'
+      - uses: flutter-actions/setup-pubdev-credentials@v1
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
       - name: Publish
-        run: dart pub publish
+        run: flutter pub publish
