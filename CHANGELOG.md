@@ -1,3 +1,6 @@
+## 1.0.8
+* Docs: Fix typo in README usage section
+
 ## 1.0.7
 * Fix: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
 
