@@ -3,7 +3,7 @@ A set of abstractions, utilities inspired from Android Jetpack 🚀 to help mana
 
 <p>
   <a href="https://github.com/praja/jetpack/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203-green" /></a>
-  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.7-blue" /></a>
+  <a href="https://pub.dev/packages/jetpack"><img src="https://img.shields.io/badge/pub-v1.0.8-blue" /></a>
 </p>
 
 ## Features
@@ -42,7 +42,7 @@ You can access your `CounterViewModel` anywhere using `BuildContext` as describe
 ```dart
 @override
 Widget build(BuildContext context) {
-  final CounterViewModel viewModel = context.viewModel();
+  final CounterViewModel viewModel = context.getViewModel();
 }
 ```
 
