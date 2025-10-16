@@ -42,7 +42,7 @@ You can access your `CounterViewModel` anywhere using `BuildContext` as describe
 ```dart
 @override
 Widget build(BuildContext context) {
-  final CounterViewModel viewModel = context.viewModel();
+  final CounterViewModel viewModel = context.getViewModel();
 }
 ```
 
