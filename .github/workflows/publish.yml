@@ -17,5 +17,7 @@ jobs:
       - uses: flutter-actions/setup-pubdev-credentials@v1
       - name: Install dependencies
         run: flutter pub get
+      - name: Run tests
+        run: flutter test
       - name: Publish
         run: flutter pub publish --force
