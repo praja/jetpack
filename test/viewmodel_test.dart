@@ -22,7 +22,6 @@ class TestViewModelFactory extends ViewModelFactory {
   }
 }
 
-
 void main() {
   testWidgets('retains same instance across rebuilds', (tester) async {
     final factory = TestViewModelFactory({TrackingVM: () => TrackingVM()});
@@ -66,19 +65,19 @@ void main() {
     TrackingVM? vm;
 
     Widget app() => ViewModelFactoryProvider(
-      viewModelFactory: factory,
-      child: ValueListenableBuilder<bool>(
-        valueListenable: show,
-        builder: (_, s, __) => s
-            ? ViewModelScope(
-                builder: (context) {
-                  vm ??= context.getViewModel<TrackingVM>();
-                  return const SizedBox.shrink();
-                },
-              )
-            : const SizedBox.shrink(),
-      ),
-    );
+          viewModelFactory: factory,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: show,
+            builder: (_, s, __) => s
+                ? ViewModelScope(
+                    builder: (context) {
+                      vm ??= context.getViewModel<TrackingVM>();
+                      return const SizedBox.shrink();
+                    },
+                  )
+                : const SizedBox.shrink(),
+          ),
+        );
 
     await tester.pumpWidget(app());
     expect(vm, isNotNull);
@@ -124,20 +123,20 @@ void main() {
     late TrackingVM vmB;
 
     Widget app() => ViewModelFactoryProvider(
-      viewModelFactory: factory,
-      child: ValueListenableBuilder<bool>(
-        valueListenable: show,
-        builder: (_, s, __) => s
-            ? ViewModelScope(
-                builder: (context) {
-                  vmA = context.getViewModel<TrackingVM>(key: 'a');
-                  vmB = context.getViewModel<TrackingVM>(key: 'b');
-                  return const SizedBox.shrink();
-                },
-              )
-            : const SizedBox.shrink(),
-      ),
-    );
+          viewModelFactory: factory,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: show,
+            builder: (_, s, __) => s
+                ? ViewModelScope(
+                    builder: (context) {
+                      vmA = context.getViewModel<TrackingVM>(key: 'a');
+                      vmB = context.getViewModel<TrackingVM>(key: 'b');
+                      return const SizedBox.shrink();
+                    },
+                  )
+                : const SizedBox.shrink(),
+          ),
+        );
 
     await tester.pumpWidget(app());
     expect(identical(vmA, vmB), isFalse);
@@ -158,24 +157,24 @@ void main() {
     TrackingVM? second;
 
     Widget app() => ViewModelFactoryProvider(
-      viewModelFactory: factory,
-      child: ValueListenableBuilder<bool>(
-        valueListenable: show,
-        builder: (_, s, __) => s
-            ? ViewModelScope(
-                builder: (context) {
-                  final vm = context.getViewModel<TrackingVM>();
-                  if (first == null) {
-                    first = vm;
-                  } else if (!identical(first, vm)) {
-                    second = vm;
-                  }
-                  return const SizedBox.shrink();
-                },
-              )
-            : const SizedBox.shrink(),
-      ),
-    );
+          viewModelFactory: factory,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: show,
+            builder: (_, s, __) => s
+                ? ViewModelScope(
+                    builder: (context) {
+                      final vm = context.getViewModel<TrackingVM>();
+                      if (first == null) {
+                        first = vm;
+                      } else if (!identical(first, vm)) {
+                        second = vm;
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  )
+                : const SizedBox.shrink(),
+          ),
+        );
 
     await tester.pumpWidget(app());
     expect(first, isNotNull);
@@ -202,24 +201,24 @@ void main() {
     TrackingVM? childVM;
 
     Widget app() => ViewModelFactoryProvider(
-      viewModelFactory: factory,
-      child: ViewModelScope(
-        builder: (context) {
-          parentVM = context.getViewModel<TrackingVM>();
-          return ValueListenableBuilder<bool>(
-            valueListenable: showChild,
-            builder: (_, s, __) => s
-                ? ViewModelScope(
-                    builder: (context) {
-                      childVM = context.getViewModel<TrackingVM>();
-                      return const SizedBox.shrink();
-                    },
-                  )
-                : const SizedBox.shrink(),
-          );
-        },
-      ),
-    );
+          viewModelFactory: factory,
+          child: ViewModelScope(
+            builder: (context) {
+              parentVM = context.getViewModel<TrackingVM>();
+              return ValueListenableBuilder<bool>(
+                valueListenable: showChild,
+                builder: (_, s, __) => s
+                    ? ViewModelScope(
+                        builder: (context) {
+                          childVM = context.getViewModel<TrackingVM>();
+                          return const SizedBox.shrink();
+                        },
+                      )
+                    : const SizedBox.shrink(),
+              );
+            },
+          ),
+        );
 
     await tester.pumpWidget(app());
     expect(parentVM.disposed, 0);
